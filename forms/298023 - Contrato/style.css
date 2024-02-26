@@ -1,0 +1,196 @@
+@font-face {
+    font-family: 'ANTQUA';
+    src: url('ANTQUA.TTF') format(truetype);
+    font-weight: normal;
+    font-style: normal;
+}
+@media screen and (max-width: 600px) {
+    form{
+      width: 100%;
+      margin: 0 auto;
+    }
+}
+@media screen and (min-width: 601px) {
+    form{
+      width:70%;
+      margin: 0 auto;
+    }
+}
+
+@media screen and (min-width: 1401px) {
+    form{
+      width:60%;
+      margin: 0 auto;
+    }
+}
+footer {
+    display: block;
+    text-align: center;
+}
+
+section.page-print{
+    margin: 1%;
+    width: 100%;
+}
+section.page-print div.header-print{
+    display: none;
+    text-align: center;
+}
+
+section.page-print div.footer-print{
+    display: none;
+    text-align: center;
+}
+header {
+    display: block;
+    text-align: center;
+}
+p#final{
+    text-align: right;
+}
+h1{
+    font-family:'ANTQUA', Times, serif;
+    text-decoration:underline;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+}
+body{
+    font-family:'ANTQUA', Times, serif;
+    font-size: 9px;
+}
+
+table{
+    margin-left: 1%;
+    margin-right: 1%;
+    font-family:'ANTQUA', Times, serif;
+    font-size: 9px;
+    border: 1px solid black;
+    border-collapse: collapse;
+    width:98%;
+}
+table td{
+    font-family:'ANTQUA', Times, serif;
+    font-size: 12px;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+table td#titulos{
+    padding: 8px 25px;
+}
+table td#textos{
+    padding: 8px ;
+}
+textarea{
+    width: 100%;
+    font-size:12px;
+    font-family:'ANTQUA', Times, serif;
+}
+input{
+    width: 100%;
+}
+
+p{
+    font-family:'ANTQUA', Times, serif;
+    font-size: 12px;
+    text-align: justify;
+}
+
+span.negrito{
+    font-weight: bold;
+}
+
+span.razao{
+    text-decoration:underline;
+    font-weight: bold;
+}
+
+body form div#contrato div.testemunha div.testemunhaGRID{
+    margin-top: -1%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;  
+    column-gap: 15%;
+    row-gap: 2.5%;
+}
+
+body form div#contrato div.testemunha div.testemunhaGRID div.test{
+    font-size: 30px;
+}
+body form div#contrato div.grid{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;  
+    column-gap: 15%;
+    row-gap: 2.5%;
+
+}
+body form div#contrato div.grid div.item{
+    font-size: 30px;
+}
+body form div#contrato div.center p{
+    text-align: center;
+    margin-top: -1.5%;
+}
+body form div#contrato div.center h3{
+    text-align: center;
+}
+@media print {
+        
+    @page{
+        margin-top: 0;
+        margin-bottom: 0;
+        size: A4;
+    }
+    
+    footer{
+        display: flex;
+        justify-content: space-between;
+        position: fixed;
+        width: 100%;
+        bottom: 10;        
+    }
+    footer p.subir{
+        margin-top: -1.5%;
+    }
+    header{
+        display: none;
+    }
+    
+    div#inputs{
+        display: none;
+    }
+    section.page-print{
+        page-break-inside:avoid;
+    }
+    section.page-print div.header-print{
+        display: block;
+        text-align: center;
+        margin-bottom: 1.40%;
+    }
+    section.page-print div.page-text{
+        height: 80%;
+    }
+
+    table tbody tr{ 
+        page-break-inside:avoid;/* Para evitar que quebre no meio d tabela*/;
+    }
+
+    div.testemunha{
+        page-break-inside:avoid;/* Para evitar que quebre no meio da testemunha*/;
+    }
+
+    div.contratante{
+        page-break-inside:avoid;/* Para evitar que quebre no meio da contratante*/;
+    }
+
+    div.contratado{
+        page-break-inside:avoid;/* Para evitar que quebre no meio da contratado*/;
+    }
+    section.page-print div.footer-print{
+        display: block;
+                       
+    }
+}

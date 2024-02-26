@@ -1,0 +1,959 @@
+<html>
+<head>
+	<link type="text/css" rel="stylesheet" href="/style-guide/css/fluig-style-guide.min.css"/>
+	<link rel="stylesheet" href="style.css">
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/mustache/mustache-min.js"></script>
+	<script type="text/javascript" src="/style-guide/js/fluig-style-guide.min.js" charset="utf-8"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
+  	<script src="jquery.maskMoney.js" type="text/javascript"></script>
+	<script type="text/javascript" src="api.js"></script>
+	<script type="text/javascript" src="api2.js"></script>
+	<script type="text/javascript" src="contrato.js"></script>
+	<script type="text/javascript" src="FLUIGIP.js"></script>
+	<script type="text/javascript" src="/webdesk/vcXMLRPC.js"></script>	
+</head>
+<body>
+		<form name="form" role="form" onmouseenter="define()">
+			<div id="inputs" onmouseenter="define()">
+				<div class="fluig-style-guide">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h1>DADOS DO CONTRATO DE PRESTAÇÃO DE SERVIÇOS</h1>
+						</div>
+						<div class="panel-body" onmouseenter="define()">
+							<div class="panel panel-primary"><!--Div usado para definir o painel do formulario-->
+								<div class="panel-heading"><!--Div para definir o cabeçalho do formulario-->
+									<div>						
+										Empresa Contratante
+									</div>
+								</div>
+								<div class="panel-body">
+									<button type="button" class="btn btn-primary" onclick="limpar()">Limpar dados da Contratante</button>
+									
+									<input type="text" id="ifinal" name="ifinal" hidden>
+									<input type="text" id="contA" name="contA" hidden>
+									<input type="text" id="cont1" name="cont1" hidden>
+									<input type="text" id="cont2" name="cont2" hidden>
+									<input type="text" id="verificar" name="verificar" hidden>
+									<br>
+									<div class="row form-group">
+										<div class="col-md-5">
+											<label class="control-label" for="razaoSocial">Razão Social: </label>
+											<input type="text" id="razaoSocial" name="razaoSocial" class="form-control form-control-sm"
+											data-fluig-required="true" data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()" value="TCI1 INVESTIMENTOS LTDA">
+										</div>
+										<div class="col-md-4">
+											<label class="control-label" for="classificacaoContratante">Tipo da empresa: </label>
+											<input type="text"  id="classificacaoContratante" name="classificacaoContratante" class="form-control form-control-sm"
+											data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()" value="sociedade empresária limitada">
+										</div>
+										<div class="col-md-3">
+											<label class="control-label" for="cnpjContratante">CNPJ/MF: </label>
+											<input type="text"  id="cnpjContratante" name="cnpjContratante" class="form-control form-control-sm"
+											data-fluig-required="true" data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="validarCNPJ(this)" value="XX.XXX.XXX/XXXX-XX" 
+											onkeyup="this.value = this.value = this.value.replace(/[^0-9/.-]/g, '').replace(/^(\d{2})(\d)/,'$1.$2').replace(/^(\d{2})\.(\d{3})(\d)/,'$1.$2.$3').replace(/\.(\d{3})(\d)/,'.$1/$2').replace(/(\d{4})(\d)/,'$1-$2')"
+											maxlength="18">
+											<p id="labelcnpjContratante" style="color: red" hidden>CNPJ inválido! Verifique o número.</p>
+										</div>
+									</div>
+									<div class="row form-group">
+										<div class="col-md-2">
+											<label class="control-label" for="cepContratante">CEP: </label>
+											<input type="text" id="cepContratante" name="cepContratante" class="form-control form-control-sm"
+											data-fluig-required="true" data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="pesquisacep(this)" value="13670000">
+										</div>
+										<div class="col-md-6">
+											<label class="control-label" for="cidadeContratante">Cidade: </label>
+											<input type="text" id="cidadeContratante" name="cidadeContratante" class="form-control form-control-sm"
+											data-fluig-required="true" data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()" value="Santa Rita do Passa Quatro">
+										</div>
+										<div class="col-md-4">
+											<label class="control-label" for="estadoContratante">Estado</label>
+											<select id="estadoContratante" name="estadoContratante" class="form-control form-control-sm"
+											data-fluig-required="true" data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()" >
+												<option value="de São Paulo">São Paulo</option>	
+												<option value="do Acre">Acre</option>	
+												<option value="de Alagoas">Alagoas</option>	
+												<option value="do Amapá">Amapá</option>	
+												<option value="da Amazonas">Amazonas</option>	
+												<option value="da Bahia">Bahia</option>
+												<option value="do Ceará">Ceará</option>	
+												<option value="do Espírito Santo">Espírito Santo</option>		
+												<option value="de Goiás">Goiás</option>		
+												<option value="de Maranhão"	>Maranhão	</option>		
+												<option value="do Mato Grosso"	>Mato Grosso</option>		
+												<option value="do Mato Grosso do Sul"	>Mato Grosso do Sul	</option>		
+												<option value="de Minas Gerais">Minas Gerais		</option>	
+												<option value="do Pará">Pará</option>	
+												<option value="da Paraíba"		>Paraíba	</option>
+												<option value="do Paraná"				>Paraná		</option>		
+												<option value="de Pernambuco"	>Pernambuco	</option>	
+												<option value="do Piauí">Piauí</option>				
+												<option value="do Rio de Janeiro">Rio de Janeiro</option>	
+												<option value="do Rio Grande do Norte"	>Rio Grande do Norte</option>		
+												<option value="do Rio Grande do Sul"	>Rio Grande do Sul	</option>	
+												<option value="de Rondônia"	>Rondônia	</option>	
+												<option value="de Roraima"		>Roraima	</option>	
+												<option value="de Santa Catarina">Santa Catarina</option>		
+												<option value="de Sergipe	"	>Sergipe	</option>	
+												<option value="de Tocantins"	>Tocantins	</option>		
+												<option value="do Distrito Federal">Distrito Federal</option>
+											</select>		
+
+										</div>
+										
+									</div>
+									<div class="row form-group">
+										<div class="col-md-6">
+											<label class="control-label" for="enderecoContratante">Endereço: </label>
+											<input type="text" id="enderecoContratante" name="enderecoContratante" class="form-control form-control-sm"
+											data-fluig-required="true" data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()" value="Rua Victor Annibal Rosim">
+										</div>
+										<div class="col-md-2">
+											<label class="control-label" for="numeroContratantrante">Número:</label>
+											<input type="number" id="numeroContratantrante" name="numeroContratantrante" class="form-control form-control-sm"
+											data-fluig-required="true" data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()" min="0" value="27">		
+										</div>
+										<div class="col-md-4">
+											<label class="control-label" for="complementoContratante">Complemento: </label>
+											<input type="text" id="complementoContratante" name="complementoContratante" class="form-control form-control-sm"
+											data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()" value=" Sala N">
+										</div>
+									</div>
+									<div class="row form-group">
+										<div class="col-md-6">
+											<label class="control-label" for="bairroContratante">Bairro: </label>
+											<input type="text" id="bairroContratante" name="bairroContratante" class="form-control form-control-sm"
+											data-fluig-required="true" data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()" value=" Vila Bandeirantes">
+										</div>
+										<div class="col-md-6">
+											<label class="control-label" for="nireContratante">NIRE: </label>
+											<input type="text" id="nireContratante" name="nireContratante" class="form-control form-control-sm"
+											data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()" value=" 3522591643-5">
+										</div>
+									</div>
+									<div class="row form-group">
+										<div class="col-md-12">
+											<label class="control-label" for="proprietarioContratante">Administrador(es): </label>
+											<textarea id="proprietarioContratante" name="proprietarioContratante" cols="30" rows="5" placeholder="Coloque todos os dados de todos os proprietários" class="form-control form-control-sm" 
+											data-fluig-required="true" data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()"  >representada por seus administradores, X, brasileiro, divorciado, empresário, portador da cédula de identidade RG nº. XX.XXX.XXX-X-SSP/SP, inscrito no CPF/MF sob o nº. XXX.XXX.XXX-XX, e/ou, Y, brasileiro, casado, empresário, portador da cédula de identidade RG nº. XX.XXX.XXX-X-SSP/SP, inscrito no CPF/MF sob nº. XXX.XXX.XXX-XX, abaixo assinado(s);</textarea>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="panel panel-primary"><!--Div usado para definir o painel do formulario-->
+								<div class="panel-heading"><!--Div para definir o cabeçalho do formulario-->
+									<div>						
+										EMPRESA CONTRATADA
+									</div>
+								</div>
+								<div class="panel-body">
+									<div class="row form-group">
+										<div class="col-md-5">
+											<label class="control-label" for="razaoSocial2">Razão Social: </label>
+											<input type="text" id="razaoSocial2" name="razaoSocial2" class="form-control form-control-sm"
+											data-fluig-required="true" data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()">
+										</div>
+										<div class="col-md-4">
+											<label class="control-label" for="classificacaoContratada">Tipo da empresa: </label>
+											<input type="text"  id="classificacaoContratada" name="classificacaoContratada" class="form-control form-control-sm"
+											data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()" >
+										</div>
+										<div class="col-md-3">
+											<label class="control-label" for="cnpjContratada">CNPJ/MF: </label>
+											<input type="text"  id="cnpjContratada" name="cnpjContratada" class="form-control form-control-sm"
+											data-fluig-required="true" data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="validarCNPJ(this)" 
+											onkeyup="this.value = this.value = this.value.replace(/[^0-9/.-]/g, '').replace(/^(\d{2})(\d)/,'$1.$2').replace(/^(\d{2})\.(\d{3})(\d)/,'$1.$2.$3').replace(/\.(\d{3})(\d)/,'.$1/$2').replace(/(\d{4})(\d)/,'$1-$2')"
+											maxlength="18">
+											<p id="labelcnpjContratada" style="color: red" hidden>CNPJ inválido! Verifique o número.</p>
+										</div>
+									</div>
+									<div class="row form-group">
+										<div class="col-md-2">
+											<label class="control-label" for="cepContratada">CEP: </label>
+											<input type="text" id="cepContratada" name="cepContratada" class="form-control form-control-sm"
+											data-fluig-required="true" data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="pesquisacep(this)">
+										</div>
+										<div class="col-md-6">
+											<label class="control-label" for="cidadeContratada">Cidade: </label>
+											<input type="text" id="cidadeContratada" name="cidadeContratada" class="form-control form-control-sm"
+											data-fluig-required="true" data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()">
+										</div>
+										<div class="col-md-4">
+											<label class="control-label" for="estadoContratada">Estado</label>
+											<select id="estadoContratada" name="estadoContratada" class="form-control form-control-sm"
+											data-fluig-required="true" data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()" >
+												<option value="de São Paulo" checked>São Paulo	</option>	
+												<option value="do Acre">Acre</option>	
+												<option value="de Alagoas">Alagoas</option>	
+												<option value="do Amapá">Amapá</option>	
+												<option value="da Amazonas">Amazonas</option>	
+												<option value="da Bahia">Bahia</option>
+												<option value="do Ceará">Ceará</option>	
+												<option value="do Espírito Santo">Espírito Santo</option>		
+												<option value="de Goiás">Goiás</option>		
+												<option value="do Maranhão"	>Maranhão	</option>		
+												<option value="de Mato Grosso"	>Mato Grosso</option>		
+												<option value="de Mato Grosso do Sul"	>Mato Grosso do Sul	</option>		
+												<option value="de Minas Gerais">Minas Gerais		</option>	
+												<option value="do Pará">Pará</option>	
+												<option value="da Paraíba"		>Paraíba	</option>
+												<option value="de Paraná"				>Paraná		</option>		
+												<option value="do Pernambuco"	>Pernambuco	</option>	
+												<option value="do Piauí">Piauí</option>				
+												<option value="do Rio de Janeiro">Rio de Janeiro</option>	
+												<option value="do Rio Grande do Norte"	>Rio Grande do Norte</option>		
+												<option value="do Rio Grande do Sul"	>Rio Grande do Sul	</option>	
+												<option value="de Rondônia"	>Rondônia	</option>	
+												<option value="de Roraima"		>Roraima	</option>	
+												<option value="de Santa Catarina">Santa Catarina</option>		
+												<option value="de Sergipe	"	>Sergipe	</option>	
+												<option value="de Tocantins"	>Tocantins	</option>		
+												<option value="do Distrito Federal">Distrito Federal</option>
+											</select>		
+
+										</div>
+										
+									</div>
+									<div class="row form-group">
+										<div class="col-md-6">
+											<label class="control-label" for="enderecoContratada">Endereço: </label>
+											<input type="text" id="enderecoContratada" name="enderecoContratada" class="form-control form-control-sm"
+											data-fluig-required="true" data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()">
+										</div>
+										<div class="col-md-2">
+											<label class="control-label" for="numeroContratantrada">Número:</label>
+											<input type="number" id="numeroContratantrada" name="numeroContratantrada" class="form-control form-control-sm"
+											data-fluig-required="true" data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()" min="0">		
+										</div>
+										<div class="col-md-4">
+											<label class="control-label" for="complementoContratada">Complemento: </label>
+											<input type="text" id="complementoContratada" name="complementoContratada" class="form-control form-control-sm"
+											data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()">
+										</div>
+									</div>
+									<div class="row form-group">
+										<div class="col-md-6">
+											<label class="control-label" for="bairroContratada">Bairro: </label>
+											<input type="text" id="bairroContratada" name="bairroContratada" class="form-control form-control-sm"
+											data-fluig-required="true" data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()">
+										</div>
+										<div class="col-md-6">
+											<label class="control-label" for="nireContratado">NIRE: </label>
+											<input type="text" id="nireContratado" name="nireContratado" class="form-control form-control-sm"
+											data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()" value=" ">
+										</div>
+									</div>
+									<div class="row form-group">
+										<div class="col-md-12">
+											<label class="control-label" for="proprietarioContratada">Administrador(es): </label>
+											<textarea id="proprietarioContratada" name="proprietarioContratada" cols="30" rows="5" placeholder="Coloque todos os dados de todos os proprietários" class="form-control form-control-sm"
+											data-fluig-required="true" data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()"></textarea>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="panel panel-primary"><!--Div usado para definir o painel do formulario-->
+								<div class="panel-heading"><!--Div para definir o cabeçalho do formulario-->
+									<div>						
+										Dados do Contrato
+									</div>
+								</div>
+								<div class="panel-body">
+									<div class="row form-group">
+										<div class="col-md-3">
+											<label class="control-label" for="dataContrato">Data do contrato: </label>
+											<input type="date" class="form-control" placeholder="Informe a data de emissão" id="dataContrato" name="dataContrato"
+											data-fluig-required="true" data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()">
+										</div>
+									</div>
+									<div class="row form-group">
+										<div class="col-md-6">
+											<label class="control-label" for="obra">Obra: </label>
+											<input type="text"id="obra" name="obra" class="form-control form-control-sm"
+											data-fluig-required="true" data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()">
+										</div>
+										<div class="col-md-6">
+											<label class="control-label" for="servico">Serviço: </label>
+											<input type="text"id="servico" name="servico" class="form-control form-control-sm"
+											data-fluig-required="true" data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()">
+										</div>
+									</div>
+									<div class="row form-group">
+										<div class="col-md-12">
+											<label class="control-label">Anexos:</label>
+											<div class="form-field" data-type="tabledetail" data-show-properties="AnexoTable" data-field-name="AnexoTable" onmouseenter="define()">
+												<div class="form-input">
+													<div class="form-group">
+														<table tablename="AnexoTable" class="table" noaddbutton="true" onmouseenter="define()">
+															<thead>
+																<tr class="tableHeadRow" onmouseenter="define()">
+																	<th class="tableColumn" class="col-md-4">Item</th>
+																	<th class="tableColumn" class="col-md-8">Nome</th>														
+																</tr>
+															</thead>
+															<tbody onmouseenter="define()">
+																<tr class="tableBodyRow">
+																	<td class="fs-v-align-middle col-md-4">
+																		<div class="form-input " >
+																			<input type="text" name="itemAnexo" id="itemAnexo" class="form-control col-md-1"  spellcheck="false" data-ms-editor="true"
+																			data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()">
+																		</div>
+																	</td>
+																	<td class="fs-v-align-middle col-md-8">
+																		<div class="form-input ">
+																			<input type="text" name="nomeAnexo" id="nomeAnexo" class="form-control"  spellcheck="false" data-ms-editor="true"
+																			data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()">
+																		</div>
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+														<button type="button" class="btn btn-primary" onclick="adicionaItemA()">Adicionar</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row form-group">
+										<div class="col-md-12">
+											<label class="control-label" for="objeto">Objeto:</label>
+											<textarea id="objeto" name="objeto" cols="30" rows="8" class="form-control form-control-sm" 
+											data-fluig-required="true" data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()">O presente contrato tem por objeto a prestação de serviços, considerando fornecimento de toda a mão de obra, materiais e equipamentos necessários para a execução das obras de infraestrutura do Loteamento Terrazul TI, fases I e II INCLUINDO OS SERVIÇOS PRELIMINARES, TAIS COMO MOBILIZAÇÃO/DESMOBILIZAÇÃO, MONTAGEM DE CANTEIRO DE OBRAS, SINALIZAÇÃO DE SEGURANÇA, DEMOLIÇÕES E RETIRADA DE ENTULHOS. SERVIÇOS DE TERRAPLENAGEM DO SISTEMA VIÁRIO E QUADRAS INCLUINDO A REMOÇÃO, ESTOQUE E POSTERIOR ESPALHAMENTO DA CAMADA VEGETAL NAS QUADRAS, CORTE E ATERRO, EXECUÇÃO DE REDE DE GALERIAS DE ÁGUAS PLUVIAIS, REDE DE ÁGUA POTAVEL, REDE DE ESGOTO, EXECUÇÃO DE GUIAS E SARJETAS, CALÇADAS, ACESSIBILIDADES E PAVIMENTAÇÃO DE TODO O SISTEMA VIÁRIO. TODOS OS SERVIÇOS DEVERÃO SER EXECUTADOS CONFORME PROJETOS, MEMORIAIS DESCRITIVOS E conforme serviços detalhados na proposta orçamentária (Anexo 1), localizado no município de Tietê/SP.</textarea>
+										</div>
+									</div>	
+									<div class="row form-group">
+										<div class="col-md-12">
+											<label class="control-label" for="fiscal">Fiscalização:</label>
+											<textarea id="fiscal" name="fiscal" cols="30" rows="3" class="form-control form-control-sm" 
+											data-fluig-required="true" data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()" >Fica desde já ajustado que a CONTRATANTE, indicará a seu livre critério o engenheiro preposto, para fiscalização, definição de questões técnicas e recebimento dos serviços executados por força deste contrato.</textarea>
+										</div>
+									</div>
+									<div class="row form-group">
+										<div class="col-md-6">
+											<label class="control-label" for="formaPagamento">Forma de pagamento:</label>
+											<select id="formaPagamento" name="formaPagamento" class="form-control form-control-sm"
+											data-fluig-required="true" data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()" >
+												<option value="Boleto">Boleto</option>	
+												<option value="Pix">Pix</option>	
+												<option value="Transferência bancária">Transferência bancária</option>	
+											</select>
+										</div>
+										<div class="col-md-4">
+											<label class="control-label" for="preco">Preço:</label>
+											<div class="input-group">
+												<span class="input-group-addon">R$</span>
+												<input type="text"id="preco" name="preco" class="form-control form-control-sm"
+												data-fluig-required="true" data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()" onkeyup="mascaraMoeda(this, event)">
+											</div>										
+										</div>
+									</div>
+									<div class="row form-group">
+											<div class="col-md-12">
+											<label class="control-label" for="faturamento">Faturamento:</label>
+											<textarea name="faturamento" id="faturamento" cols="30" rows="10" class="form-control form-control-sm"
+											data-fluig-required="true" data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()">a) Os pagamentos serão efetuados através de medições mensais, que serão realizadas pela CONTRATANTE com acompanhamento da CONTRATADA, todo dia 20 de cada mês, considerando-se os serviços executados até tais datas.
+b) A liberação para o empreiteiro/prestador de serviço emitir a nota fiscal será até o dia 25 do mês corrente ao da realização da medição.
+c) O pagamento da nota fiscal aprovada será realizado no 5º dia do mês subsequente ao da realização da medição.  
+d) As partes reconhecem que o comprovante de pagamento, inclusive quando realizado por meio de depósito ou transferência bancária, é prova inequívoca de quitação do pagamento a ser realizado pela CONTRATANTE, razão pela qual a CONTRATADA automaticamente lhe outorgará ampla, geral e irrestrita quitação, nada mais podendo reclamar, sob qualquer título.</textarea>
+										</div>
+									</div>
+									<div class="row form-group">
+										<div class="col-md-12">
+											<label class="control-label" for="notas">Emissão de notas:</label>
+											<textarea name="notas" id="notas" cols="30" rows="2" class="form-control form-control-sm"
+											data-fluig-required="true" data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()">A CONTRATADA deverá impreterivelmente entregar na obra as faturas e/ou notas fiscais correspondentes às medições e/ou entregas materiais e/ou serviços.</textarea>
+										</div>
+									</div>
+									<div class="row form-group">
+										<div class="col-md-12">
+											<label class="control-label" for="reajustes">Reajustes:</label>
+											<textarea name="reajustes" id="reajustes" cols="30" rows="8" class="form-control form-control-sm"
+											data-fluig-required="true" data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()">a)	Os valores estabelecidos neste contrato são fixos e irreajustáveis.
+b)	As partes definem que, somente haverá alteração nos valores (acréscimos ou decréscimos), caso haja alteração de projetos por iniciativa da CONTRATANTE, o qual será feito de forma documentada. 
+c)	Na hipótese de alteração dos serviços, os valores a serem utilizados serão os mesmos preços unitários constante no anexo 4, como referência para adequação.</textarea>
+										</div>
+									</div>
+									<div class="row form-group">
+										<div class="col-md-12">
+											<label class="control-label" for="condPagamento">Condições de pagamento:</label>
+											<textarea name="condPagamento" id="condPagamento" cols="30" rows="8" class="form-control form-control-sm"
+											data-fluig-required="true" data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()">a)	Caso seja necessário, a CONTRATANTE se compromete a efetuar, ou fazer com que sejam efetuados, os pagamentos dos materiais comprados pela CONTRATADA e faturados contra a CONTRATANTE, com prazos de pagamento nunca inferiores a 15 (quinze) dias, sendo descontados todos esses valores do valor estabelecido acima.
+	b)	Fica, porém, ressalvado que os materiais somente poderão ser faturados diretamente em nome da CONTRATANTE se devidamente autorizado pela mesma, devendo a CONTRATADA solicitar tal faturamento através do documento constante do Anexo 4, onde será exarada a autorização do responsável pela obra por parte da CONTRATANTE.</textarea>
+										</div>
+									</div>
+									<div class="row form-group">
+										<div class="col-md-6">
+											<label class="control-label" for="prazo">Prazo de execução:</label>
+											<input type="text"id="prazo" name="prazo" class="form-control form-control-sm"
+											data-fluig-required="true" data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()">
+										</div>
+										<div class="col-md-6">
+											<label class="control-label" for="multa">Multa por infração:</label>
+											<input type="text"id="multa" name="multa" class="form-control form-control-sm"
+											data-fluig-required="true" data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()" value="X% sobre o valor do contrato, conforme cláusula 9ª deste instrumento.">
+										</div>
+									</div>
+									<div class="row form-group">
+										<div class="col-md-12">
+											<label class="control-label" for="observacao">Observação:</label>
+											<textarea name="observacao" id="observacao" cols="30" rows="5" class="form-control form-control-sm"
+											data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()"></textarea>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="panel panel-primary"><!--Div usado para definir o painel do formulario-->
+								<div class="panel-heading"><!--Div para definir o cabeçalho do formulario-->
+									<div>						
+										Assinaturas
+									</div>
+								</div>
+								<div class="panel-body">
+									<h3>Contratante</h3>
+									<p>Coloque abaixo todos os administradores que irão assinar o documento</p>
+									<div class="form-field" data-type="tabledetail" data-show-properties="assContratante" data-field-name="assContratante">
+										<div class="form-input">
+											<div class="form-group">
+												<table tablename="assContratante" class="table" noaddbutton="true">
+													<thead>
+														<tr class="tableHeadRow">
+															<th class="tableColumn" class="col-md-4">Nome</th>
+															<th class="tableColumn" class="col-md-4">CPF</th>
+															<th class="tableColumn" class="col-md-4">E-mail</th>														
+														</tr>
+													</thead>
+													<tbody >
+														<tr class="tableBodyRow">
+															<td class="fs-v-align-middle col-md-4">
+																<div class="form-input " >
+																	<input type="text" name="assContratanteNome" id="assContratanteNome" class="form-control col-md-1"  spellcheck="false" data-ms-editor="true"
+																	data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()">
+																</div>
+															</td>
+															<td class="fs-v-align-middle col-md-4">
+																<div class="form-input ">
+																	<input type="text" name="assContratanteCPF" id="assContratanteCPF" class="form-control"  spellcheck="false" data-ms-editor="true"
+																	data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="validadorCPF(this)" onkeyup="this.value = cpf(this.value)" maxlength="14">
+																	<p id="labelassContratanteCPF"  name="labelassContratanteCPF" style="color: red"  hidden>CPF inválido! Verifique o número se está correto.</p>
+																</div>
+															</td>
+															<td class="fs-v-align-middle col-md-4">
+																<div class="form-input ">
+																	
+																	<input type="email" name="assContratanteEmail" id="assContratanteEmail" class="form-control"  spellcheck="false" data-ms-editor="true"
+																	data-fluig-write="0,45" data-fluig-state-valid="0,45"  onblur="define()">
+																</div>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+												<button type="button" class="btn btn-primary" onclick="adicionaItem1()">Adicionar</button>
+											</div>
+										</div>
+									</div>
+									<h3>Contratado</h3>
+									<p>Coloque abaixo todos os administradores que irão assinar o documento</p>
+									<div class="form-field" data-type="tabledetail" data-show-properties="assContratado" data-field-name="assContratado">
+										<div class="form-input">
+											<div class="form-group">
+												<table tablename="assContratado" class="table" noaddbutton="true">
+													<thead>
+														<tr class="tableHeadRow">
+															<th class="tableColumn" class="col-md-4">Nome</th>
+															<th class="tableColumn" class="col-md-4">CPF</th>
+															<th class="tableColumn" class="col-md-4">E-mail</th>														
+														</tr>
+													</thead>
+													<tbody >
+														<tr class="tableBodyRow">
+															<td class="fs-v-align-middle col-md-4">
+																<div class="form-input " >
+																	<input type="text" name="assContratadoNome" id="assContratadoNome" class="form-control col-md-1"  spellcheck="false" data-ms-editor="true"
+																	data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()">
+																</div>
+															</td>
+															<td class="fs-v-align-middle col-md-4">
+																<div class="form-input ">
+																	<input type="text" name="assContratadoCPF" id="assContratadoCPF" class="form-control"  spellcheck="false" data-ms-editor="true"
+																	data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="validadorCPF(this)" onkeyup="this.value = cpf(this.value)" maxlength="14">
+																	<p id="labelassContratadoCPF"  name="labelassContratadoCPF" style="color: red" hidden>CPF inválido! Verifique o número se está correto.</p>
+																</div>
+															</td>
+															<td class="fs-v-align-middle col-md-4">
+																<div class="form-input ">
+																	<input type="email" name="assContratadoEmail" id="assContratadoEmail" class="form-control"  spellcheck="false" data-ms-editor="true"
+																	data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()">
+																</div>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+												<button type="button" class="btn btn-primary" onclick="adicionaItem2()">Adicionar</button>
+											</div>
+										</div>
+									</div>
+									<h3>Testemunha 1</h3>
+									<div class="row form-group">
+										<div class="col-md-4">
+											<label class="control-label" for="nomeTest1">Nome: </label>
+											<input type="text" id="nomeTest1" name="nomeTest1" class="form-control form-control-sm"
+											data-fluig-required="true" data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()">
+										</div>
+										<div class="col-md-4">
+											<label class="control-label" for="cpfTest1">CPF: </label>
+											<input type="text"  id="cpfTest1" name="cpfTest1" class="form-control form-control-sm"
+											data-fluig-required="true" data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="validadorCPF(this)" onkeyup="this.value = cpf(this.value)"
+											maxlength="14">
+											<p id="labelcpfTest1"   style="color: red" hidden>CPF inválido! Verifique o número.</p>
+										</div>
+										<div class="col-md-4">
+											<label class="control-label" for="emailTest1">E-mail: </label>
+											<input type="email"  id="emailTest1" name="emailTest1" class="form-control form-control-sm"
+											data-fluig-required="true" data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()">
+										</div>
+									</div>
+									<h3>Testemunha 2</h3>
+									<div class="row form-group">
+										<div class="col-md-4">
+											<label class="control-label" for="nomeTest2">Nome: </label>
+											<input type="text" id="nomeTest2" name="nomeTest2" class="form-control form-control-sm"
+											data-fluig-required="true" data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()">
+										</div>
+										<div class="col-md-4">
+											<label class="control-label" for="cpfTest2">CPF: </label>
+											<input type="text"  id="cpfTest2" name="cpfTest2" class="form-control form-control-sm"
+											data-fluig-required="true" data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="validadorCPF(this)" onkeyup="this.value = cpf(this.value)"
+											maxlength="14">
+											<p id="labelcpfTest2"   style="color: red" hidden>CPF inválido! Verifique o número.</p>
+										</div>
+										<div class="col-md-4">
+											<label class="control-label" for="emailTest2">E-mail: </label>
+											<input type="email"  id="emailTest2" name="emailTest2" class="form-control form-control-sm"
+											data-fluig-required="true" data-fluig-write="0,45" data-fluig-state-valid="0,45" onblur="define()">
+										</div>
+									</div>	
+								</div>							
+							</div>
+						</div>
+					</div>	
+				</div>
+			</div>
+			<header class="header">
+				<img src="logo.png" alt="Logo da THCM">
+			</header>
+			<div class="div-pusher"></div>
+			<div id="contrato" class="content" onmouseenter="define()" >
+				<section class="page-print">
+					<div class="header-print">
+						<img src="logo.png" alt="Logo da THCM">
+					</div>
+					<div class="page-text">
+						<h1>CONTRATO DE PRESTAÇÃO DE SERVIÇOS</h1><br><br>
+					
+						<table class="table table-bordered" >
+							<tbody>
+								<tr>
+									<td width="40%" id="titulos"><p>1.	OBRA:</p></td>
+									<td width="60%" id="textos"><p id="obraTxt"></p></td>
+								</tr>
+								<tr>
+									<td width="40%" id="titulos">2.	SERVIÇO:</td>
+									<td width="60%" id="textos"><p id="servicoTxt"></p></td>
+								</tr>
+								<tr>
+									<td width="40%" id="titulos">3.	CONTRATANTE:</td>
+									<td width="60%" id="textos"><p id="contratanteTxt"></p></td>
+								</tr>
+								<tr>
+									<td width="40%" id="titulos">4.	CONTRATADA:</td>
+									<td width="60%" id="textos"><p id="contratadaTxt"></p></td>
+								</tr>
+								<tr>
+									<td width="40%" id="titulos">5.	ANEXOS:</td>
+									<td width="60%" id="textos"><p id="anexosTxt"></p></td>
+								</tr>
+								<tr>
+									<td width="40%" id="titulos">6.	OBJETO:</td>
+									<td width="60%" id="textos"><p id="objetoTxt"></p></td>
+								</tr>
+								
+							</tbody>
+						</table>
+					</div>
+				</section>
+				<section class="page-print">
+					<div class="header-print">
+						<img src="logo.png" alt="Logo da THCM">
+					</div>
+					<div class="page-text">
+						<table class="table table-bordered" >
+							<tbody>
+								<tr>
+									<td width="40%" id="titulos">7.	FISCALIZAÇÃO:</td>
+									<td width="60%" id="textos"><p id="fiscalizacaoTxt"></p></td>
+								</tr>
+								<tr>
+									<td width="40%" id="titulos">8.	PREÇO:</td>
+									<td width="60%" id="textos"><p id="precoTxt"></p></td>
+								</tr>
+								<tr>
+									<td width="40%" id="titulos">9.	FORMA DE PAGAMENTO:</td>
+									<td width="60%" id="textos"><p id="formaPagamentoTxt"></p></td>
+								</tr>
+								<tr>
+									<td width="40%" id="titulos">10. FATURAMENTO:</td>
+									<td width="60%" id="textos"><p id="faturamentoTxt"></p></td>
+								</tr>
+								<tr>
+									<td width="40%" id="titulos">11.	EMISSÃO DE NOTAS:</td>
+									<td width="60%" id="textos"><p id="notasTxt"></p></td>
+								</tr>
+								<tr>
+									<td width="40%" id="titulos">12.	REAJUSTE:</td>
+									<td width="60%" id="textos"><p id="reajusteTxt"></p></td>
+								</tr>
+								<tr>
+									<td width="40%" id="titulos">13.	CONDIÇÕES DE PAGAMENTO:</td>
+									<td width="60%" id="textos"><p id="condicaoPagamentoTxt"></p></td>
+								</tr>
+								<tr>
+									<td width="40%" id="titulos">14.	PRAZO DE EXECUÇÃO SERVIÇOS:</td>
+									<td width="60%" id="textos"><p id="prazoExecucaoTxt"></p></td>
+								</tr>
+							</tbody>
+						</table>
+						
+					</div>
+					
+				</section>
+				<section class="page-print">
+						<div class="header-print">
+							<img src="logo.png" alt="Logo da THCM">
+						</div>
+						<div class="page-text">
+								<table class="table table-bordered" >
+									<tbody>
+										<tr>
+											<td width="40%" id="titulos">15.	MULTA POR INFRAÇÃO CONTRATUAL:</td>
+											<td width="60%" id="textos"><p id="multaInfracaoTxt"></p></td>
+										</tr>
+										<tr>
+											<td width="40%" id="titulos">16.	OBSERVAÇÕES:</td>
+											<td width="60%" id="textos"><p id="obsTxt"></p></td>
+										</tr>
+									</tbody>
+								</table>
+								<p>Pelo presente instrumento particular de contrato de prestação de serviços, as partes acima qualificadas têm entre si, justo e acertado o que segue, que se obrigam a cumprir e respeitar por si, seus herdeiros e sucessores a qualquer título:</p>
+								<p><span class="negrito">Cláusula 1.</span> Fazem parte integrante deste contrato o(s) ANEXO(S) constante(s) do item 5 do Quadro Resumo acima.</p>
+								<p><span class="negrito">Cláusula 2.</span> O prazo de execução dos serviços deverá obedecer ao estipulado no item 14 do Quadro Resumo acima.</p>
+								<p><span class="negrito">2.1.</span>	Observa-se que as hipóteses de caso fortuito ou força maior, deverá ser comunicado por escrito pela CONTRATADA a CONTRATANTE, no prazo de 24 (vinte e quatro) horas do início da ocorrência, a fim de permitir o planejamento e controle dos serviços. Caso a CONTRATADA deixe de comunicar a ocorrência, como aqui previsto, será entendido como risco por ela assumido, devendo, pois, responder individualmente pelas ocorrências.</p>
+								<p><span class="negrito">2.2.</span>	Os serviços e prazos estabelecidos neste contrato poderão ser prorrogados, suspensos e/ou alterados, desde que formalizados por meio de aditamento contratual, nos casos de eventuais alterações de projeto, que acarretem comprovado retardamento dos serviços; ou no caso de alteração do ritmo dos serviços, por motivos de ordem técnica comprovada, comercial e/ou econômicas justificadas pela CONTRATANTE.</p>
+								<p><span class="negrito">Cláusula 3.</span> O preço dos serviços, bem como eventuais reajustamentos e formas de pagamento, são aqueles determinados nos itens 8, 9 e 12 do Quadro Resumo acima.</p>
+								<p><span class="negrito">3.1.</span>	Pela prestação dos serviços objeto deste contrato, a CONTRATADA receberá a importância correspondente aos serviços que forem efetivamente executados.</p>
+								<p><span class="negrito">3.2.</span>	Poderá a CONTRATANTE descontar dos valores referentes aos pagamentos mensais, todas as despesas decorrentes dos processos trabalhistas, como honorários, custas processuais e recolhimentos previdenciários, bem como eventuais recolhimentos não efetuados durante o período da prestação dos serviços, tais como: tributos federais, estaduais, municipais e demais contribuições sociais e trabalhistas, ficando as respectivas guias à disposição da CONTRATADA.</p>
+								<p><span class="negrito">3.3.</span>	Na hipótese da CONTRATANTE não aprovar medições, por erros, falhas ou motivos alheios a sua vontade, ou por falhas de documentos de responsabilidade da CONTRATADA, esta será devolvida à CONTRATADA tantas vezes quanto necessário, até que essa providencie as correções solicitadas. Neste caso, o novo prazo para pagamento (sete dias úteis) passará a ser contados da data da entrega da nota fiscal corrigida e aprovada pela CONTRATANTE.</p>
+								<p><span class="negrito">3.4.</span>	Fica expressamente vetada a emissão de qualquer fatura, nota de débito ou duplicata pela CONTRATADA sem prévia autorização da CONTRATANTE, que em regra, se dará pelo aceite à medição, sendo infração de natureza gravíssima a ocorrência deste fato, podendo a CONTRATANTE tomar as medidas judiciais cíveis e criminais cabíveis à espécie, inclusive por perdas e danos.</p>
+						</div>
+						
+				</section>
+				<section class="page-print">
+					<div class="header-print">
+						<img src="logo.png" alt="Logo da THCM">
+					</div>
+					<div class="page-text">	
+							<p><span class="negrito">3.5.</span>	A CONTRATADA declara que nos preços constantes deste instrumento, que vier a aceitar nos termos do contrato, já estarão incluídos todos os encargos previdenciários, sociais e trabalhistas, incluindo seguros (seguro da obra), adicionais de periculosidade e produtividade incidentes sobre o serviço, bem como os tributários (Federais, Estaduais e Municipais) incidentes ou que venham a incidir sobre a prestação dos serviços, outros ônus de qualquer natureza, incluindo o fornecimento de materiais, instrumentos e equipamentos necessários à execução dos serviços, nada podendo reclamar como encargo adicional.</p>
+							<p><span class="negrito">3.6.</span>	Fica acordado pelas partes, que não será admitido aditar o presente contrato de qualquer valor, material, mão de obra ou equipamento referente ao fiel cumprimento das “boas técnicas de execução”, haja vista que na elaboração do orçamento todo suprimento necessário já fora contemplado.</p>
+							<p><span class="negrito">3.7.</span>	Em caso de surgimento de serviços não constantes na Planilha de Orçamento, a CONTRATADA deverá apresentar à CONTRATANTE, antes da execução dos mesmos, planilha de quantidades e preços unitários dos referidos serviços, e se solicitado, a abertura da composição dos valores, para aprovação da CONTRATANTE.</p>
+							<p><span class="negrito">3.8.</span>	Os valores para o eventual aditivo contratual serão ajustados com base nos preços unitários apresentados na Proposta Orçamentária fornecida pela CONTRATADA.</p>
+							<p><span class="negrito">Cláusula 4.</span> São obrigações da CONTRATADA, por força do presente contrato:</p>
+							<p><span class="negrito">4.1.</span>	Providenciar junto às repartições públicas, companhias concessionárias ou outras, as inscrições necessárias ao desempenho das suas funções e execuções dos serviços.</p>
+							<p><span class="negrito">4.2.</span>	Proceder, conforme o caso, a Anotação da Responsabilidade Técnica – ART – do CREA, sempre que assim a lei determinar.</p>	
+							<p><span class="negrito">4.3.</span>	Fornecer todos os equipamentos dentro dos padrões exigidos, respondendo pelas especificações técnicas e funcionalidade.</p>
+							<p><span class="negrito">4.4.</span>	A CONTRATADA deverá manter um engenheiro tecnicamente capacitado para supervisão e acompanhamento dos trabalhos, realizando interface e comunicação com a CONTRATANTE, e um encarregado geral.</p>
+							<p><span class="negrito">4.4.1.</span>  A CONTRATANTE terá o direito de, por motivo justiçável, exigir a substituição do engenheiro mencionado na cláusula anterior.  Nesta hipótese, deverá ocorrer tal pedido mediante a solicitação por escrito da CONTRATANTE. A CONTRATADA cumprirá a exigência e providenciará a respectiva substituição no prazo máximo de 48 (quarenta e oito) horas, contados do recebimento da solicitação.</p>
+							<p><span class="negrito">4.5.</span>	Planejar e coordenar a execução de todos os serviços, bem como o fornecimento de materiais e equipamentos, incluindo gerenciamento de prazos.</p>
+							<p><span class="negrito">4.6.</span>	Implantar as medidas de segurança que devem ser tomadas por todos aqueles que de alguma forma vierem a participar da Obra e Serviços que serão executados, supervisionado o cumprimento rigoroso de todas as normas de segurança do trabalho, de acordo com a NR-18, e demais Normas Reguladoras.</p>
+							<p><span class="negrito">4.7.</span>    Indicar, fornecer, manter controle efetivo de entrega, treinar e fiscalizar o uso correto, guarda e conservação dos   Equipamentos de Proteção Individual – EPI´s para os seus funcionários, prepostos ou subcontratados, conforme a necessidade do trabalho a ser executado.</p>
+							<p><span class="negrito">4.8.</span>	Cumprir, durante a execução dos serviços objeto deste ajuste, toda a legislação vigente aplicável à espécie, bem como todas as determinações e resoluções dos órgãos competentes, da Administração Pública e demais entidades de fiscalização, responsabilizando-se integralmente, por todo e quaisquer ônus decorrentes da inobservância destes preceitos.</p>
+							<p><span class="negrito">4.9.</span>	A CONTRATADA se compromete, neste ato, a respeitar rigorosamente a todas as regras e condições de trabalho constantes nos Acordos e Convenções Sindicais que envolvam a categoria.</p>
+							<p><span class="negrito">4.10.</span>	Fornecer listagem do quadro de seus funcionários e prepostos que estarão prestando serviços dentro da propriedade da CONTRATANTE, comunicando, de imediato, qualquer alteração desse quadro, a fim de que os mesmos possam ser identificados.</p>
+							<p><span class="negrito">4.11.</span>	Responsabilizar-se pela contratação e manutenção de seguro contra acidentes de trabalho, nos termos da legislação vigente, além das modalidades de seguro de invalidez ou de vida.</p>
+							
+						</div>
+						
+				</section>
+				<section class="page-print">
+						<div class="header-print">
+							<img src="logo.png" alt="Logo da THCM">
+						</div>
+						<div class="page-text">	
+							<p><span class="negrito">4.12.</span>	Assegurar, durante a execução da obra e serviços, estrito cumprimento das obrigações trabalhista, previdenciárias, fiscais, de segurança, edicina e higiene do trabalho, sempre respeitando a legislação relacionada a todos os profissionais vinculados à obra e serviços, arcando com o pagamento e a responsabilidade decorrentes de qualquer multa que porventura vier a ocorrer pelo descumprimento de normas.</p>
+							<p><span class="negrito">4.13.</span>	Providenciar para que permaneça, no local das obras e serviços, toda a documentação legal exigida pelos órgãos municipais, estaduais, federais, Ministério do Trabalho e Associação de Classe, inclusive no sentido de atender eventual fiscalização.</p>
+							<p><span class="negrito">4.14.</span>	Responsabilizar-se pela atenção e vigilância de seus funcionários, bem como sua escolha e eleição.</p>
+							<p><span class="negrito">4.15.</span>	A CONTRATADA suportará todos os riscos de perda de materiais e ferramentas de sua propriedade, armazenamentos na obra, seja pelo roubo ou furto, sendo de sua exclusiva responsabilidade tomar as devidas preocupações que julgar necessárias à sua proteção.</p>
+							<p><span class="negrito">4.16.</span>	Refazer, sem qualquer ônus para a CONTRATANTE, parcial ou totalmente, os serviços e materiais que tenham sido executados de forma incorreta ou insatisfatória, a critérios da CONTRATANTE, bem como arcar com os danos emergentes causados pela insatisfatória ou incorreta prestação de serviços, dentro do prazo mutuamente acordado entre as partes contratantes.</p>
+							<p><span class="negrito">4.17.</span>	Fornecer o transporte dos equipamentos e eventuais materiais que serão utilizados para a execução dos trabalhos.</p>
+							<p><span class="negrito">4.18.</span>	Responder pelo pagamento da mão de obra direta, pelo vínculo empregatício de seus empregados contratados, pelos encargos trabalhistas, previdenciários, declarando desde já, que não existe nenhum tipo de vínculo empregatício entre seus funcionários e a CONTRATANTE.</p>
+							<p><span class="negrito">4.19.</span>	Obriga-se, ainda, em havendo demandas judiciais, requerer de imediato a DENUNCIAÇÃO DA LIDE DA CONTRATADA, na forma do artigo 125, do Código de Processo Civil Brasileiro, retirando a CONTRATANTE da relação processual, ou no caso de sua impossibilidade, acatando o direito da mesma em relação ao regresso.</p>
+							<p><span class="negrito">4.20.</span>	Responsabiliza-se em caso de condenação judicial, mesmo que parcial, ou em primeira instância, ou ainda, pendente de julgamento final, obriga-se a CONTRATADA a proceder o ressarcimento de quaisquer valores suportados pela CONTRATANTE, no prazo de 72 (setenta e duas) horas, a contar do recebimento da comunicação e desembolso pela mesma.</p>
+							<p><span class="negrito">4.21.</span>	Caso não seja efetuado o referido ressarcimento, a CONTRATANTE está autorizada desde já, a proceder à execução do débito, com base no artigo 784, inciso III, e seguintes do Código de Processo Civil.</p>
+							<p><span class="negrito">4.22.</span>	A CONTRATADA autoriza a CONTRATANTE, a reter, todos os valores dos pagamentos mensais, necessários para os pagamentos de ações cíveis e trabalhistas, caso não sejam realizados pela CONTRATADA, servido de garantia para o cumprimento dos mesmos, cuja liberação somente ocorrerá quando efetivamente liquidado o referido processo e ainda os de natureza tributária, previdenciários e ainda pelas obrigações decorrentes da lei, por mais especiais e específicas que sejam.</p>
+							<p><span class="negrito">4.23.</span>	Responsabiliza-se por todo e qualquer ato inseguro de trabalho de seus empregados, inclusive pela ocorrência de acidentes do trabalho eventualmente ocorridos na obra da CONTRATANTE.</p>
+							<p><span class="negrito">4.24.</span>	Serão de responsabilidade da CONTRATADA todas as multas que venham ser aplicadas por infração aos dispositivos legais ou em virtude de qualquer ato ou omissão de seus prepostos ou funcionários.</p>
+							<p><span class="negrito">4.25.</span>	Responsabilizar-se integralmente pelos serviços prestados, respondendo perante a CONTRATANTE e a terceiros eventuais danos a que der causa em razão da execução dos mesmos, ressarcindo-os dos prejuízos, bem como em relação aos atos praticados por seus funcionários ou prepostos, quer seja por ação, omissão, negligência, imperícia ou imprudência.</p>
+							<p><span class="negrito">4.26.</span>	A CONTRATANTE, a qualquer momento, independentemente de aprovação da CONTRATADA, poderá providenciar em um prazo de 24 horas, as adequações que se fizerem necessárias, ficando desde já autorizada a descontar os valores gastos, na medição dos serviços subsequentes, como forma de compensação de valores.</p>
+							<p><span class="negrito">4.27.</span>	O não cumprimento de qualquer item supramencionado, seja em conjunto ou isoladamente, ensejará a suspensão dos serviços já iniciados ou o impedimento de seu início até que a situação seja regularizada, sem direito de cobrança de horas paradas pela CONTRATADA nem sequer de aditamento do prazo aqui estabelecido.</p>
+							<p><span class="negrito">Cláusula 5.</span> São obrigações da CONTRATANTE:</p>
+						</div>
+						
+				</section>
+				<section class="page-print">
+					<div class="header-print">
+						<img src="logo.png" alt="Logo da THCM">
+					</div>
+					<div class="page-text">
+						<p><span class="negrito">5.1.</span>	Proceder aos pagamentos, em conformidade com os prazos avençados, mediante a aprovação das respectivas medições e emissão de nota fiscal.</p>
+						<p><span class="negrito">5.2.</span>	O direito de fiscalização por parte da CONTRATANTE não desobrigará a CONTRATADA de suas responsabilidades, como previsto neste instrumento.</p>
+						<p><span class="negrito">5.3.</span>	Sustar quaisquer atividades ou equipamentos que não estejam de acordo com este contrato ou com a boa técnica ou que atentem a segurança e bens próprios ou de terceiros, mediante notificação à CONTRATADA.</p>
+						<p><span class="negrito">Cláusula 6ª.</span> A CONTRATADA se compromete a não ceder ou submeter a terceiros, as obras e serviços ora CONTRATADOS, salvo com autorização expressa da CONTRATANTE, ficando desde já estabelecido que na hipótese de subcontratação, esta será de inteira responsabilidade da CONTRATADA, inclusive a execução e qualidade dos serviços, não configurando qualquer vínculo contratual entre a CONTRATANTE e os eventuais subcontratadas da CONTRATADA. A CONTRATADA não poderá transferir este contrato no seu todo ou em partes, nem mesmo negociar direitos dele sem o expresso consentimento por escrito da CONTRATANTE.</p>
+						<p><span class="negrito">Cláusula 7ª.</span> Ressalvadas as hipóteses de força maior, nos termos do artigo 393 do Código Civil Brasileiro, o presente contrato obriga as partes, seus herdeiros e sucessores a qualquer título. Poderá, porém, dar-se sua rescisão, por inadimplência de qualquer uma das partes, das obrigações estabelecidas neste instrumento, para as quais não haja norma especial, como por exemplo, nas hipóteses de atraso de pagamento ou serviços.</p>
+						<p><span class="negrito">7.1.</span>	A CONTRATADA poderá ser considerada inadimplente, sem direito a qualquer reclamação ou indenização, se ocorrer qualquer um dos fatos abaixo discriminados, sem prejuízo dos demais casos expressamente previstos neste contrato:</p>
+						<p><span class="negrito">a.</span>	Falência, concordata, liquidação judicial ou extrajudicial da CONTRATADA.</p>
+						<p><span class="negrito">b.</span>	Em caso de greve de funcionários da CONTRATADA mesmo que parcial, ainda que não declarada judicialmente como em estado de greve, observando os preceitos legais para tal movimento, ou ainda em caso de constatação de operações comumente denominadas de “operação tartaruga”, de qualquer setor ou departamento da CONTRATADA, excluindo subempreiteiros autorizados pela CONTRATANTE ou ainda interrupção integral dos trabalhos sem causa justificada, por prazo superior a 5 dias.</p>
+						<p><span class="negrito">c.</span>	Comprovada negligência, incompetência, imprudência ou desídia sistemáticas na execução dos serviços objeto deste contrato, na organização e administração, bem como inobservância de projeto e/ou especificações, após justa advertência por escrito da CONTRATANTE, não atendida pela CONTRATADA.</p>
+						<p><span class="negrito">d.</span>	Execução judicial sobre os bens da CONTRATADA, localizados ou alocados no canteiro de obras ou aos trabalhos, se tais bens ainda forem necessários à condução da obra contratada.</p>
+						<p><span class="negrito">e.</span>	Não cumprimento das obrigações trabalhistas, previdenciárias e fiscais atinentes a este contrato, notadamente, mas não se limitando à hipótese de ocorrência de falta de pagamento de salários, vales, adiantamentos habituais, fornecimento de vale transporte, refeição ou tíquete refeição.</p>
+						<p><span class="negrito">f.</span>	Paralisação injustificada das Obras e Serviços, por mais de 30 (trinta) dias consecutivos, salvo em virtude de casos fortuitos ou motivos de força maior, com a anuência da CONTRATANTE.</p>
+						<p><span class="negrito">7.2.</span>	A CONTRATANTE poderá ser considerada inadimplente, também sem direito a qualquer reclamação ou indenização, se ocorrer qualquer dos fatos abaixo relacionados:</p>
+						<p><span class="negrito">a.</span>	Falência, concordata, liquidação judicial ou extrajudicial da CONTRATANTE.</p>
+						<p><span class="negrito">b.</span>	Atraso no pagamento à CONTRATADA por mais de 60 (sessenta) dias, de faturas exigíveis nos termos deste contrato, contando-se os 60 (sessenta) dias a partir da data prevista contratualmente para o pagamento.</p>	
+						<p><span class="negrito">7.3.</span>	Se a rescisão ocorrer por inadimplência da CONTRATADA, proceder-se-á da seguinte forma:</p>
+						<p><span class="negrito">a.</span>	A CONTRATANTE pagará as faturas relativas aos serviços totais ou parcialmente executados até a data da rescisão, deduzido o valor correspondente a eventuais multas e outros débitos da CONTRATADA. </p>
+						<p><span class="negrito">7.4.</span>	Ocorrendo a rescisão por culpa da CONTRATANTE, a CONTRATADA fará jus à remuneração, calculada sobre o valor das obras e serviços realizados até então.</p>
+					</div>
+					
+				</section>
+				<section class="page-print">
+					<div class="header-print">
+						<img src="logo.png" alt="Logo da THCM">
+					</div>
+					<div class="page-text">	
+						<p><span class="negrito">Cláusula 8ª</span> As partes convencionam, a aplicação de uma multa, cujo percentual foi estabelecido no item 14 do Quadro Resumo acima, pelo não cumprimento de alguma das cláusulas pactuadas neste contrato.</p>
+						<p><span class="negrito">8.1.</span>	A multa porventura aplicada fica desde logo, considerada dívida líquida e certa, ficando a CONTRATANTE autorizada a descontá-la dos pagamentos/retenções devidos à CONTRATADA.</p>
+						<p><span class="negrito">Cláusula 9º.</span> Ao terminar os serviços, a CONTRATADA se responsabilizará pela limpeza de todas as áreas, deixando-as, ainda, livres e desimpedidas de entulhos, lixos e materiais remanescentes. A CONTRATADA pedirá, por escrito, à CONTRATANTE, à aceitação física da obra, podendo aceitar ou realizar solicitação de correções de eventuais defeitos ou complementação de serviços incompletos. </p>
+						<p><span class="negrito">Cláusula 10ª.</span> A CONTRATADA garante a qualidade e a perfeição dos serviços a serem por ela executados pelo período exigido pelo Código Civil Brasileiro e  Código de Defesa do Consumidor, a contar da data de entrega do TERMO DE ENTREGA E RECEBIMENTO DA OBRA, comprometendo-se a efetuar todos os reparos necessários provocados por erros ou falhas na execução dos serviços, obrigando-se a refazê-los tão logo constatados ou reclamados pela CONTRATANTE, mediante simples carta protocolada dirigida à CONTRATADA, que assim se terá por notificada, sem qualquer ônus à CONTRATANTE.</p>
+						<p><span class="negrito">Cláusula 11ª.v Das disposições gerais:</p>
+						<p><span class="negrito">11.1.</span>	Este instrumento revoga expressamente qualquer outro documento, seja carta de intenção ou quaisquer outras negociações havidas entre as mesmas partes anteriormente a esta data.</p>
+						<p><span class="negrito">11.2.</span>	Todos os documentos e informações contidos neste instrumento e relativos a esta iniciativa são confidenciais e não devem ser revelados e publicados sem o consentimento e autorização previa das partes.</p>
+						<p><span class="negrito">11.3.</span>	A CONTRATADA fica expressamente proibida de utilizar e divulgar qualquer informação a respeito das contratações firmadas com a CONTRATANTE em veículos de mídia ou ainda promover qualquer propaganda em função da parceria fechada sem expressa autorização da CONTRATANTE.</p>
+						<p><span class="negrito">11.4.</span>	A omissão no exercício de qualquer direito ou a maneira de exercê-lo, não ensejará a CONTRATADA nenhum direito, porque não poderá ser entendido como novação.</p>
+						<p><span class="negrito">11.5.</span>	As PARTES se comprometem a não explorar qualquer forma de mão de obra infantil e a evitar, de todos os modos, a contratação e/ou aquisição de produtos e/ou serviços de pessoas físicas ou jurídicas que explorem direta ou indiretamente o trabalho infantil em qualquer localidade.</p>
+						<p><span class="negrito">11.6.</span>	O contrato não gera qualquer tipo de vínculo societário entre as partes, e/ou qualquer associação, agência, consórcio, mandato de representação ou responsabilidade solidária entre as partes.</p>
+						<p><span class="negrito">11.7.</span>	A CONTRATANTE incentiva as práticas sustentáveis por parte das empresas CONTRATADAS. Entendemos como práticas sustentáveis, a utilização de processos de produção ambientalmente corretos, preferencialmente que causem menor incidência possível de poluição ambiental de qualquer natureza, com a utilização de recursos naturais reaproveitáveis e/ou renováveis e, empresas que possuam programas e ações sociais e culturais que foquem o bem-estar de seus colaboradores e das comunidades locais. Preferencialmente, é recomendável que sejam utilizados os meios e práticas ecológicas existentes, de forma a minimizar a degradação do meio ambiente e das comunidades, criando condições para que as futuras gerações possam usufruir de todos os recursos naturais atuais e/ou renováveis necessários para a manutenção da espécie no planeta. Reconhecemos que as soluções para o nosso estilo de vida em sociedade devem considerar a interdependência entre os recursos humanos, financeiros e naturais. Nosso futuro depende de grandes e pequenas inovações que respeitem e sejam inspiradas por esse equilíbrio.</p>
+						<p><span class="negrito">11.8.</span>	Fica expressamente ajustado o direito de regresso da CONTRATANTE contra a CONTRATADA na hipótese da CONTRATANTE incorrer em qualquer custo ou despesa por ter a CONTRATADA, agindo com culpa, descumprido o disposto neste contrato, direito este que obrigará a CONTRATADA a reembolsar a CONTRATANTE o valor despendido corrigido monetariamente segundo a variação do Índice Geral de Preços – Disponibilidade Interna (IGP-DI), coletado e divulgado pela Fundação Getúlio Vargas (FGV), ou seu eventual substituto, no período compreendido entre a data do desembolso e a do efetivo pagamento.</p>
+						<p><span class="negrito">11.9.</span>	 As partes elegem o foro da Comarca de Santa Rita do Passa Quatro/SP, para conhecer e dirimir quaisquer dúvidas ou discussões oriundas do presente contrato, com renúncia a qualquer outro por mais especial e privilegiado que seja.</p>
+						<p>Estando assim justas, firmam o presente perante as testemunhas abaixo indicadas.</p>
+						<p id="final" style="margin-top: -0.5%;">Santa Rita do Passa Quatro,</p>
+						
+					</div>
+
+			</section>
+			<section class="page-print">
+				<div class="header-print">
+					<img src="logo.png" alt="Logo da THCM">
+				</div>
+				<div class="page-text">
+						<div class="contratante">
+						<h2>CONTRATANTE:</h2>
+						
+						<div class="center">
+							<h3 id="empContratante"></h3>
+							<p>(representante(s) legal(is))</p>
+						</div>
+
+						<div class="grid" id="grid1">
+
+						</div>
+					</div>
+						<br>
+					
+						<div class="contratado">
+							<h2>CONTRATADA:</h2>
+							
+							<div class="center">
+								<h3 id="empContratada"></h3>
+								<p>(representante(s) legal(is))</p>
+							</div>
+							
+							<div class="grid" id="grid2">
+
+							</div>
+						</div>
+						<br>
+						<div class="testemunha">
+							<h2>TESTEMUNHAS:</h2> 
+							<div class="testemunhaGRID">
+								<div class="test">
+									<p>1.___________________________________</p>                              
+									<p style="margin-top: -2%">Nome: <span  id="test1nome"></span></p>
+									<p style="margin-top: -5%">CPF:<span  id="test1cpf"></span></p>
+									<p style="margin-top: -5%">E-mail:<span  id="test1email"></span></p>
+								</div>
+								<div class="test">
+									<p>2.___________________________________</p>
+									<p style="margin-top: -2%">Nome:<span  id="test2nome"></span></p>
+									<p style="margin-top: -5%">CPF:<span  id="test2cpf"></span></p>
+									<p style="margin-top: -5%">Email:<span  id="test2email"></span></p>
+								</div>
+							</div>
+						</div>	
+				</div>
+			</section>
+			<footer>
+				<div class="footer-text">
+					<p><span class="negrito">AMERICANA-SP</span> - Rua Com. César A. Almeida, H22 - CEP: 13.479-302 - Telefone: (19) 3467-9600</p>
+					<p class="subir"><span class="negrito">SANTA RITA DO PASSA QUATRO </span> - Rua Victor Aníbal Rosin,27 - Cep:13.670-000 - Telefone: (19) 3582-9750</p>
+					<p class="subir" style="text-align: center;">www.thcm.com.br</p>
+				</div>
+				<img src="selo.png" alt="selo">
+			</footer>
+		</form>
+		<script>
+			function validadorCPF(cpf) {
+				cpfvalue = cpf.value;
+				cpfid = cpf.id;
+				var strCPF = cpfvalue.replace('.','').replace('.','').replace('-','');
+				console.log(strCPF);
+				var Soma;
+				var Resto;
+				var valida;
+				Soma = 0;
+				switch (strCPF) {
+					case '00000000000':
+						valida = false;
+						break;
+					case '11111111111':
+						valida = false;
+						break;
+					case '22222222222':
+						valida = false;
+						break;
+					case '33333333333':
+						valida = false;
+						break;
+					case '44444444444':
+						valida = false;
+						break;
+					case '55555555555':
+						valida = false;
+						break;
+					case '66666666666':
+						valida = false;
+						break;
+					case '77777777777':
+						valida = false;
+						break;
+					case '88888888888':
+						valida = false;
+						break;
+					case '99999999999':
+						valida = false;
+						break;
+					default:
+						break;
+				}
+				for (i=1; i<=9; i++) Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (11 - i);
+				Resto = (Soma * 10) % 11;
+
+					if ((Resto == 10) || (Resto == 11))  Resto = 0;
+					if (Resto != parseInt(strCPF.substring(9, 10)) ) valida = false;
+
+				Soma = 0;
+					for (i = 1; i <= 10; i++) Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (12 - i);
+					Resto = (Soma * 10) % 11;
+
+					if ((Resto == 10) || (Resto == 11))  Resto = 0;
+					if (Resto != parseInt(strCPF.substring(10, 11) ) ) valida = false;
+					if (valida != false) valida = true;
+					
+				console.log(valida);
+				if(valida == false){
+					document.getElementById('label'+cpfid).hidden = false;
+					document.getElementById('valida') += cpfid + "false "
+				}else{
+					document.getElementById('label'+cpfid).hidden = true;
+					document.getElementById('valida') += cpfid + "true "
+					define();
+				}
+				
+			}
+			function validarCNPJ(cnpj) {
+				var valida;
+				cnpjvalue = cnpj.value;
+				cnpjid = cnpj.id;
+				cnpj = cnpjvalue.replace(/[^\d]+/g,'');
+
+				if(cnpj == '') valida = false;
+				
+				
+
+				// Elimina CNPJs invalidos conhecidos
+				if (cnpj == "00000000000000" || 
+					cnpj == "11111111111111" || 
+					cnpj == "22222222222222" || 
+					cnpj == "33333333333333" || 
+					cnpj == "44444444444444" || 
+					cnpj == "55555555555555" || 
+					cnpj == "66666666666666" || 
+					cnpj == "77777777777777" || 
+					cnpj == "88888888888888" || 
+					cnpj == "99999999999999")
+					valida = false;
+					
+				// Valida DVs
+				tamanho = cnpj.length - 2
+				numeros = cnpj.substring(0,tamanho);
+				digitos = cnpj.substring(tamanho);
+				soma = 0;
+				pos = tamanho - 7;
+				for (i = tamanho; i >= 1; i--) {
+				soma += numeros.charAt(tamanho - i) * pos--;
+				if (pos < 2)
+						pos = 9;
+				}
+				resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+				if (resultado != digitos.charAt(0))
+					valida = false;
+					
+				tamanho = tamanho + 1;
+				numeros = cnpj.substring(0,tamanho);
+				soma = 0;
+				pos = tamanho - 7;
+				for (i = tamanho; i >= 1; i--) {
+				soma += numeros.charAt(tamanho - i) * pos--;
+				if (pos < 2)
+						pos = 9;
+				}
+				resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+				if (resultado != digitos.charAt(1))
+					valida = false;
+						
+				if (valida != false) valida = true;
+				if(valida == false){
+					document.getElementById('label'+cnpjid).hidden = false;
+					document.getElementById('valida') += cnpjid + "false "
+				}else{
+					document.getElementById('label'+cnpjid).hidden = true;
+					document.getElementById('valida') += cnpjid + "true "
+					define();
+				}
+				
+			}
+
+		</script>
+		
+</body>
+</html>
